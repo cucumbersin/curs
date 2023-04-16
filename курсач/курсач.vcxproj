@@ -19,9 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Flight.h" />
+    <ClInclude Include="issuance_or_refund_air_ticket.h" />
     <ClInclude Include="mylist.h" />
+    <ClInclude Include="Passenger.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Flight.cpp" />
+    <ClCompile Include="issuance_or_refund_air_ticket.cpp" />
+    <ClCompile Include="Passenger.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
