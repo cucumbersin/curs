@@ -23,7 +23,7 @@ Hash_table::Hash_table(size_t size) {
 		}
 	}
 	table.resize(num, nullptr);
-	capacity = size;
+	capacity = num;
 	this->size = 0;
 }
 
@@ -31,6 +31,19 @@ void Hash_table::add(Passenger& obj) {
 	double filling_rate = static_cast<double>(size++) / static_cast<double>(capacity);
 	if (filling_rate > 0.75) {
 		//релокация таблицы
+		for (size_t i = 0; i < prime_number.size() - 1; i++) {
+			if (capacity == prime_number[i]) {
+				capacity = prime_number[i + 1];
+				break;
+			}
+		}
+		std::vector<Passenger*> table_buf(capacity);
+		for (size_t i = 0; i < table.size(); i++) {
+			if (table[i] != nullptr) {
+				table_buf[get_index(table[i]->get_passport_id())] = table[i];
+			}
+		}
+		table = table_buf;
 	}
 	else {
 		if (table[get_index(obj.get_passport_id())] == nullptr) {

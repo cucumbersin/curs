@@ -31,6 +31,7 @@
     <ClCompile Include="issuance_or_refund_air_ticket.cpp" />
     <ClCompile Include="Passenger.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="wood.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

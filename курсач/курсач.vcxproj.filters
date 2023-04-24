@@ -47,5 +47,8 @@
     <ClCompile Include="Hash_table.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="wood.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
