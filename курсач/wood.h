@@ -4,7 +4,7 @@
 
 using namespace std;
 
-class wood {
+class Wood {
 	int size = 0;
 	struct Nood {
 		int key;
@@ -24,14 +24,14 @@ class wood {
 	Nood* rotateleft(Nood* q); // левый поворот вокруг q	
 	Nood* balance(Nood* p);// балансировка узла p	
 public:
-	wood() = default;
+	Wood() = default;
 	bool push(Flight& values);
 	bool pop(int delete_value);
 	Flight* search(Flight& values);
 	void print();	
 };
 
-inline void wood::print_recursion(Nood* ptr, int l, bool flag) {
+inline void Wood::print_recursion(Nood* ptr, int l, bool flag) {
 	if (ptr->ptr_left != nullptr) {
 		ptr->ptr_left = balance(ptr->ptr_left);
 		print_recursion(ptr->ptr_left, l + 1, flag);
@@ -50,7 +50,7 @@ inline void wood::print_recursion(Nood* ptr, int l, bool flag) {
 
 
 
-inline int& wood::del_min_elemente(Nood* ptr) {
+inline int& Wood::del_min_elemente(Nood* ptr) {
 	Nood* ptr_previous = ptr;
 	ptr = ptr->ptr_right;
 	while (true) {
@@ -78,17 +78,17 @@ inline int& wood::del_min_elemente(Nood* ptr) {
 	}
 }
 
-inline void wood::subtraction_rec(Nood* ptr, double key) {
+inline void Wood::subtraction_rec(Nood* ptr, double key) {
 	if (ptr->ptr_left != nullptr) { subtraction_rec(ptr->ptr_left, key); }
 	ptr->key -= key;
 	if (ptr->ptr_right != nullptr) { subtraction_rec(ptr->ptr_right, key); }
 }
 
-inline int wood::bfactor(Nood* p) {
+inline int Wood::bfactor(Nood* p) {
 	return height(p->ptr_right) - height(p->ptr_left);
 }
 
-inline wood::Nood* wood::rotateright(Nood* p) {
+inline Wood::Nood* Wood::rotateright(Nood* p) {
 	Nood* q = p->ptr_left;
 	p->ptr_left = q->ptr_right;
 	q->ptr_right = p;
@@ -97,7 +97,7 @@ inline wood::Nood* wood::rotateright(Nood* p) {
 	return q;
 }
 
-inline wood::Nood* wood::rotateleft(Nood* q) {
+inline Wood::Nood* Wood::rotateleft(Nood* q) {
 	Nood* p = q->ptr_right;
 	q->ptr_right = p->ptr_left;
 	p->ptr_left = q;
@@ -106,7 +106,7 @@ inline wood::Nood* wood::rotateleft(Nood* q) {
 	return p;
 }
 
-inline void wood::fixheight(Nood* p) {
+inline void Wood::fixheight(Nood* p) {
 	if (p->ptr_left != nullptr) {
 		fixheight(p->ptr_left);
 	}
@@ -118,7 +118,7 @@ inline void wood::fixheight(Nood* p) {
 	p->height = (hl > hr ? hl : hr) + 1;
 }
 
-inline wood::Nood* wood::balance(Nood* p) {
+inline Wood::Nood* Wood::balance(Nood* p) {
 	fixheight(p);
 	if (bfactor(p) == 2) {
 		if (bfactor(p->ptr_right) < 0)
@@ -133,7 +133,7 @@ inline wood::Nood* wood::balance(Nood* p) {
 	return p; // балансировка не нужна
 }
 
-inline bool wood::push(Flight& values) {
+inline bool Wood::push(Flight& values) {
 	int add_value = values.get_num_flight_number();
 	int height_buf = 1;
 	if (!size) {
@@ -188,7 +188,7 @@ inline bool wood::push(Flight& values) {
 
 
 
-inline bool wood::pop(int delete_value) {
+inline bool Wood::pop(int delete_value) {
 	if (!size) {
 		return false;
 	}
@@ -255,7 +255,7 @@ inline bool wood::pop(int delete_value) {
 }
 
 
-inline Flight* wood::search(Flight& values) {
+inline Flight* Wood::search(Flight& values) {
 	int search_value = values.get_num_flight_number();
 	if (!size) {		
 		return  nullptr;
@@ -281,7 +281,7 @@ inline Flight* wood::search(Flight& values) {
 }
 
 
-inline void wood::print() {
+inline void Wood::print() {
 	if (size) {
 		print_recursion(ptr, 5, false);
 		print_recursion(ptr, 5, true);

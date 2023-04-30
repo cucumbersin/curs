@@ -8,8 +8,13 @@ class Hash_table {
 public:
 	Hash_table(size_t size);
 	void add(Passenger&);
-	void remove();
+	void add(Passenger*);
+	void remove(std::string);
+	Passenger* search(std::string);
+	void clear();
+	void print_all();//не очень хорошая идея
 	Passenger* operator[](size_t);//отладка
+
 private:
 	std::vector<Passenger*> table;
 	static const  std::array<size_t,60> prime_number;

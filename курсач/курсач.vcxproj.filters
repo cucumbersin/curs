@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="mylist.h">
+    <ClInclude Include="Mylist.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Passenger.h">
@@ -24,10 +24,13 @@
     <ClInclude Include="Flight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="issuance_or_refund_air_ticket.h">
+    <ClInclude Include="Issuance_or_refund_air_ticket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Hash_table.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,14 +44,22 @@
     <ClCompile Include="Flight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="issuance_or_refund_air_ticket.cpp">
+    <ClCompile Include="Issuance_or_refund_air_ticket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Hash_table.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="wood.h">
+    <ClCompile Include="Wood.h">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="passanger.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 #include "Hash_table.h"
 #include "Passenger.h"
 #include <iostream>
+#include <iomanip>
 
 const std::array<size_t, 60> Hash_table::prime_number = { 2, 3, 5, 7, 11, 13, 17,
 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79,
@@ -58,7 +59,63 @@ void Hash_table::add(Passenger& obj) {
 	}
 }
 
-void Hash_table::remove() {//Fucking Magic
+void Hash_table::add(Passenger* obj) {
+	double filling_rate = static_cast<double>(size++) / static_cast<double>(capacity);
+	if (filling_rate > 0.75) {
+		//релокация таблицы
+		for (size_t i = 0; i < prime_number.size() - 1; i++) {
+			if (capacity == prime_number[i]) {
+				capacity = prime_number[i + 1];
+				break;
+			}
+		}
+		std::vector<Passenger*> table_buf(capacity);
+		for (size_t i = 0; i < table.size(); i++) {
+			if (table[i] != nullptr) {
+				table_buf[get_index(table[i]->get_passport_id())] = table[i];
+			}
+		}
+		table = table_buf;
+	}
+	else {
+		if (table[get_index(obj->get_passport_id())] == nullptr) {
+			//std::cout << get_index(obj.get_passport_id()) << ' ' << obj.get_passport_id() << std::endl;
+			table[get_index(obj->get_passport_id())] = obj;//отсутствие колизии
+		}
+		else {
+			//решаем колизию
+			//std::cout << collision(get_hash(obj.get_passport_id())) << ' ' << obj.get_passport_id() << ' ' << "col" << std::endl;
+			table[collision(get_hash(obj->get_passport_id()))] = obj;
+		}
+	}
+}
+
+void Hash_table::remove(std::string str) {//Fucking Magic
+}
+
+Passenger* Hash_table::search(std::string str) {
+	return table[get_index(str)];
+}
+
+void Hash_table::clear() {
+	size = 0;
+	table.clear();
+}
+
+void Hash_table::print_all() {
+	if (size) {
+		for (size_t i = 0; i < capacity; i++) {
+			if (table[i] != nullptr) {
+			std::cout << table[i]->get_passport_id() << std::setw(40)
+				<< table[i]->get_place_a_date_passport() << std::setw(40)
+				<< table[i]->get_full_name() << std::setw(40)
+				<< table[i]->get_dob() << std::endl;
+			}
+		}
+	}
+	else {
+		std::cout << "пасажиров нет" << std::endl;
+	}
 }
 
 Passenger* Hash_table::operator[](size_t index) {

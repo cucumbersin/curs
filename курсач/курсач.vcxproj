@@ -21,17 +21,22 @@
   <ItemGroup>
     <ClInclude Include="Flight.h" />
     <ClInclude Include="Hash_table.h" />
-    <ClInclude Include="issuance_or_refund_air_ticket.h" />
-    <ClInclude Include="mylist.h" />
+    <ClInclude Include="Issuance_or_refund_air_ticket.h" />
+    <ClInclude Include="menu.h" />
+    <ClInclude Include="Mylist.h" />
     <ClInclude Include="Passenger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Flight.cpp" />
     <ClCompile Include="Hash_table.cpp" />
-    <ClCompile Include="issuance_or_refund_air_ticket.cpp" />
+    <ClCompile Include="Issuance_or_refund_air_ticket.cpp" />
+    <ClCompile Include="menu.cpp" />
     <ClCompile Include="Passenger.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="wood.h" />
+    <ClCompile Include="Wood.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="passanger.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
