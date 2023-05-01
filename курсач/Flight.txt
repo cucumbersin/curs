@@ -1,0 +1,9 @@
+AVC-978 airlineName departureAirport arrivalAirport 29.12.2001 19:23 10 20
+AVC-980 airlineName departureAirport arrivalAirport 29.12.2001 19:23 10 20
+AVC-981 airlineName departureAirport arrivalAirport 29.12.2001 19:23 10 20
+AVC-982 airlineName departureAirport arrivalAirport 29.12.2001 19:23 10 20
+AVC-983 airlineName departureAirport arrivalAirport 29.12.2001 19:23 10 20
+AVC-984 airlineName departureAirport arrivalAirport 29.12.2001 19:23 10 20
+AVC-985 airlineName departureAirport arrivalAirport 29.12.2001 19:23 10 20
+AVC-986 airlineName departureAirport arrivalAirport 29.12.2001 19:23 10 20
+AVC-987 airlineName departureAirport arrivalAirport 11.9.2001 19:23 20 20

@@ -1,4 +1,8 @@
 #include "Flight.h"
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
 
 int Flight::get_num_flight_number() {
 	int buf = flight_number[0] - 'A';
@@ -28,4 +32,15 @@ Flight::Flight(
 	this->number_seats = number_seats;
 	this->Number_free_places = Number_free_places;
 
+}
+
+void Flight::print() {
+	cout << flight_number << ' '		  ;
+	cout	<< airline_name << setw(20)	  ;
+	cout	<< departure_airport << setw(20);
+	cout	<< arrival_airport << setw(12);
+	cout	<< departure_date << setw(12) ;
+	cout	<< departure_time << setw(5)  ;
+	cout	<< number_seats << setw(5)	  ;
+	cout	<< Number_free_places << endl;
 }

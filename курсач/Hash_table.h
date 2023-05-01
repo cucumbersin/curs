@@ -23,6 +23,6 @@ private:
 	size_t get_hash(std::string);
 	size_t get_index(std::string);
 	static const size_t D = 3, C = 2;//адрес=h(x)+ci+di2
-	size_t collision(size_t);
+	size_t collision(size_t hash);
 };
 

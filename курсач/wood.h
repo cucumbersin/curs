@@ -23,27 +23,27 @@ class Wood {
 	Nood* rotateright(Nood* p);
 	Nood* rotateleft(Nood* q); // левый поворот вокруг q	
 	Nood* balance(Nood* p);// балансировка узла p	
+	int get_num_flight_number(string flight_number);
 public:
 	Wood() = default;
 	bool push(Flight& values);
+	bool push(Flight&& valuess);
 	bool pop(int delete_value);
 	Flight* search(Flight& values);
+	Flight* search(std::string str);
 	void print();	
 };
 
 inline void Wood::print_recursion(Nood* ptr, int l, bool flag) {
 	if (ptr->ptr_left != nullptr) {
-		ptr->ptr_left = balance(ptr->ptr_left);
+		//ptr->ptr_left = balance(ptr->ptr_left);
 		print_recursion(ptr->ptr_left, l + 1, flag);
 	}
-	if (flag) {
-		for (int i = 0; i < l; i++) {
-			cout << ' ';
-		}
-		cout << ptr->key << endl;
+	if (flag) {		
+		ptr->value->print();
 	}
 	if (ptr->ptr_right != nullptr) {
-		ptr->ptr_right = balance(ptr->ptr_right);
+		//ptr->ptr_right = balance(ptr->ptr_right);
 		print_recursion(ptr->ptr_right, l + 1, flag);
 	}
 }
@@ -56,7 +56,7 @@ inline int& Wood::del_min_elemente(Nood* ptr) {
 	while (true) {
 		if (ptr->ptr_left != nullptr) {
 			ptr_previous = ptr;
-			ptr = ptr->ptr_left;
+			ptr = ptr->ptr_left;//
 		}
 		else {
 			if (ptr->ptr_right != nullptr && ptr_previous->ptr_right != ptr) {
@@ -141,6 +141,61 @@ inline bool Wood::push(Flight& values) {
 		ptr->key = add_value;
 		ptr->height = height_buf;
 		++size;
+		return true;
+	}
+	else {
+		if (ptr->key == add_value) {
+			return false;
+		}
+		Nood* ptr_buf = ptr;
+		for (;;) {
+			height_buf++;
+			if (ptr_buf->key == add_value) {
+				return false;
+			}
+			if (ptr_buf->key < add_value) {
+				if (ptr_buf->ptr_right != nullptr) {
+					ptr_buf = ptr_buf->ptr_right;
+				}
+				else {
+					ptr_buf->ptr_right = new Nood;
+					ptr_buf->ptr_right->key = add_value;
+					ptr_buf->ptr_right->value = &values;
+					ptr_buf->ptr_right->height = 1;
+					++size;
+					ptr = balance(ptr);
+					return true;
+				}
+			}
+			else {
+				if (ptr_buf->ptr_left != nullptr) {
+					ptr_buf = ptr_buf->ptr_left;
+				}
+				else {
+					ptr_buf->ptr_left = new Nood;
+					ptr_buf->ptr_left->key = add_value;
+					ptr_buf->ptr_left->value = &values;
+					ptr_buf->ptr_left->height = 1;
+					++size;
+					ptr = balance(ptr);
+					return true;
+				}
+			}
+		}
+	}
+}
+
+inline bool Wood::push(Flight&& valuess) {
+	Flight* values1 = new Flight(valuess);
+	Flight& values = *values1;
+	int add_value = values.get_num_flight_number();
+	int height_buf = 1;
+	if (!size) {
+		ptr = new Nood;
+		ptr->key = add_value;
+		ptr->value = &values;
+		ptr->height = height_buf;
+		++size;//
 		return true;
 	}
 	else {
@@ -280,10 +335,45 @@ inline Flight* Wood::search(Flight& values) {
 	}
 }
 
+inline Flight* Wood::search(std::string str) {
+	int search_value = get_num_flight_number(str);
+	if (!size) {
+		return  nullptr;
+	}
+	Nood* ptr_buf = ptr;
+	for (;;) {
+		if (ptr_buf->key == search_value) {
+			return  ptr->value;
+		}
+		if (ptr_buf->key < search_value) {
+			if (ptr_buf->ptr_right == nullptr) {
+				return  nullptr;
+			}
+			ptr_buf = ptr_buf->ptr_right;
+		}
+		else {
+			if (ptr_buf->ptr_left == nullptr) {
+				return  nullptr;
+			}
+			ptr_buf = ptr_buf->ptr_left;
+		}
+	}
+}
+
+inline int Wood::get_num_flight_number(string flight_number) {
+	int buf = flight_number[0] - 'A';
+	buf = (buf << 5) + (flight_number[1] - 'A');
+	buf = (buf << 5) + (flight_number[2] - 'A');
+	buf = (buf * 10) + (flight_number[4] - '0');
+	buf = (buf * 10) + (flight_number[5] - '0');
+	buf = (buf * 10) + (flight_number[6] - '0');
+	return buf;
+}
+
 
 inline void Wood::print() {
 	if (size) {
-		print_recursion(ptr, 5, false);
-		print_recursion(ptr, 5, true);
+		//print_recursion(ptr, 5, false);//
+		 print_recursion(ptr, 5, true);
 	}
 }

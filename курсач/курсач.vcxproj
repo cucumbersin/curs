@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="check_func.h" />
     <ClInclude Include="Flight.h" />
     <ClInclude Include="Hash_table.h" />
     <ClInclude Include="Issuance_or_refund_air_ticket.h" />
@@ -27,6 +28,7 @@
     <ClInclude Include="Passenger.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="check_func.cpp" />
     <ClCompile Include="Flight.cpp" />
     <ClCompile Include="Hash_table.cpp" />
     <ClCompile Include="Issuance_or_refund_air_ticket.cpp" />
@@ -36,6 +38,8 @@
     <ClCompile Include="Wood.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Flight.txt" />
+    <Text Include="Issuance_or_refund_air_ticket.txt" />
     <Text Include="passanger.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

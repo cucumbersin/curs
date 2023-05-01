@@ -11,6 +11,6 @@ public:
 private:
 	std::string passport_id;
 	std::string place_a_date_passport;
-	std::string full_name;
+	std::string full_name;// 3 string which whith min size of 3
 	std::string dob;
 };

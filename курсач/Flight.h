@@ -16,11 +16,12 @@ public:
 	);
 	inline void set_flight_number(std::string flight_number) { this->flight_number = flight_number; };
 	inline std::string get_flight_number() { return flight_number; };
+	void print();
 private:
 	std::string flight_number;//AAA-NNN
-	std::string airline_name;
-	std::string departure_airport;
-	std::string arrival_airport;
+	std::string airline_name;// min 5 symbol
+	std::string departure_airport;// min 5 symbol
+	std::string arrival_airport;// min 5 symbol
 	std::string departure_date;
 	std::string departure_time;
 	int number_seats = 0;
