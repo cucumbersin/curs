@@ -10,13 +10,14 @@
 #include "Issuance_or_refund_air_ticket.h"
 #include "Wood.h"
 #include "menu.h"
-
+#include <windows.h>
 
 using namespace std;
 
 int main() {
 	setlocale(LC_ALL, "ru");
-	Hash_table t(150);	
+	Hash_table t(150);
+	SetConsoleCP(1251);
 	cout << "считать изначальные данные? 1-да" << endl;
 	int choice;
 	cin >> choice;	
@@ -56,6 +57,13 @@ int main() {
 			file2 >> flight_number >> airline_name >> departure_airport >> arrival_airport >> departure_date >> departure_time;
 			file2 >> number_seats >> Number_free_places;
 			tree.push(Flight(flight_number, airline_name, departure_airport, arrival_airport, departure_date, departure_time, number_seats, Number_free_places));
+		}
+		file2.close();
+		ifstream file3("Issuance_or_refund_air_ticket.txt");
+		while (!file3.eof()) {
+			string passport_id, flight_number, airline_number;
+			file3 >> passport_id >> flight_number >> airline_number;
+			list.push(Issuance_or_refund_air_ticket(passport_id, flight_number, airline_number));
 		}
 	}
 	while (true) {

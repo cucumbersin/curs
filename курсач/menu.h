@@ -12,22 +12,24 @@ void delete_passenger(Hash_table& table, Mylist<Issuance_or_refund_air_ticket>& 
 
 void show_all_passengers(Hash_table& table);//+
 
-void clean_all_passengers(Hash_table& table);//+
+void clean_all_passengers(Hash_table& table, Mylist<Issuance_or_refund_air_ticket>& list);//+
 
 void search_passenger_on_pasport_id(Hash_table& table, Mylist<Issuance_or_refund_air_ticket> &list);
 
 void search_passenger_on_full_name(Hash_table& table);
 
-void registration_new_flight(Wood &tree);
+void registration_new_flight(Wood &tree);//+
 
-void delete_flight(Wood &tree);
+void delete_flight(Wood &tree, Mylist<Issuance_or_refund_air_ticket>& list);
 
 void show_all_flights(Wood &tree);
 
-void clean_all_flights(Wood &tree);
+void clean_all_flights(Wood &tree, Mylist<Issuance_or_refund_air_ticket>& list);
 
 void search_flight_on_flight_number(Wood &tree, Hash_table& table, Mylist<Issuance_or_refund_air_ticket> &list);
 //поиска по сегменту названия аэропорта прибытия
 void searh_flight_on_arrival_airoport(Wood& tree);
 
 void registration_new_issuance_or_refund_air_ticket(Wood& tree, Hash_table& table, Mylist<Issuance_or_refund_air_ticket>& list);
+
+void del_issuance_or_refund_air_ticket(Wood& tree, Hash_table& table, Mylist<Issuance_or_refund_air_ticket>& list);

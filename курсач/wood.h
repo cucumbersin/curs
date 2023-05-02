@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include "Flight.h"
+#include <string>
+#include "check_func.h"
 
 using namespace std;
 
@@ -23,28 +25,32 @@ class Wood {
 	Nood* rotateright(Nood* p);
 	Nood* rotateleft(Nood* q); // левый поворот вокруг q	
 	Nood* balance(Nood* p);// балансировка узла p	
-	int get_num_flight_number(string flight_number);
+	int get_num_flight_number(string flight_number);	
+	void zad_rec(Nood* ptr,string str);
+	void delete_tree(Nood* curr);
 public:
 	Wood() = default;
 	bool push(Flight& values);
 	bool push(Flight&& valuess);
-	bool pop(int delete_value);
+	bool pop(std::string str);
 	Flight* search(Flight& values);
 	Flight* search(std::string str);
-	void print();	
+	void print();
+	void zad(string str);
+	void delete_tree();
 };
 
 inline void Wood::print_recursion(Nood* ptr, int l, bool flag) {
 	if (ptr->ptr_left != nullptr) {
 		//ptr->ptr_left = balance(ptr->ptr_left);
 		print_recursion(ptr->ptr_left, l + 1, flag);
-	}
-	if (flag) {		
-		ptr->value->print();
-	}
+	}	
 	if (ptr->ptr_right != nullptr) {
 		//ptr->ptr_right = balance(ptr->ptr_right);
 		print_recursion(ptr->ptr_right, l + 1, flag);
+	}
+	if (flag) {
+		ptr->value->print();
 	}
 }
 
@@ -243,7 +249,8 @@ inline bool Wood::push(Flight&& valuess) {
 
 
 
-inline bool Wood::pop(int delete_value) {
+inline bool Wood::pop(std::string str) {
+	int delete_value = get_num_flight_number(str);
 	if (!size) {
 		return false;
 	}
@@ -343,7 +350,7 @@ inline Flight* Wood::search(std::string str) {
 	Nood* ptr_buf = ptr;
 	for (;;) {
 		if (ptr_buf->key == search_value) {
-			return  ptr->value;
+			return  ptr_buf->value;
 		}
 		if (ptr_buf->key < search_value) {
 			if (ptr_buf->ptr_right == nullptr) {
@@ -368,6 +375,39 @@ inline int Wood::get_num_flight_number(string flight_number) {
 	buf = (buf * 10) + (flight_number[5] - '0');
 	buf = (buf * 10) + (flight_number[6] - '0');
 	return buf;
+}
+
+inline void Wood::zad(string str) {
+	zad_rec(ptr, str);
+}
+
+inline void Wood::delete_tree() {
+	size = 0;
+	delete_tree(ptr);
+}
+
+inline void Wood::zad_rec(Nood* ptr, string str) {
+	if (ptr->ptr_left != nullptr) {
+		//ptr->ptr_left = balance(ptr->ptr_left);
+		zad_rec(ptr->ptr_left, str);
+	}
+	if (ptr->ptr_right != nullptr) {
+		//ptr->ptr_right = balance(ptr->ptr_right);
+		zad_rec(ptr->ptr_right, str);
+	}	
+	vector<int> buf1 = SearchString(ptr->value->get_arrival_airport(),str);
+	if (buf1.size()) { 
+		cout << ptr->value->get_flight_number() << ' ' << ptr->value->get_arrival_airport() << ' ' << ptr->value->get_departure_date() << ' ' << ptr->value->get_departure_time() << endl;
+	}
+	
+}
+
+inline void Wood::delete_tree(Nood* curr) {
+	if (curr) {
+		delete_tree(curr->ptr_left);
+		delete_tree(curr->ptr_right);
+		delete curr;
+	}
 }
 
 

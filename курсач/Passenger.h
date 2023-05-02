@@ -7,6 +7,7 @@ public:
 	inline std::string get_place_a_date_passport() const { return place_a_date_passport; };
 	inline std::string get_full_name() { return full_name; };
 	inline std::string get_dob() { return dob; };
+
 	inline void set_passport_id(std::string passport_id) {this->passport_id = passport_id;};
 private:
 	std::string passport_id;

@@ -3,7 +3,7 @@
 //#include "Issuance_or_refund_air_ticket.h"
 template <class T >
 class Mylist {
-public:
+public:	
 	Mylist() = default;
 	~Mylist();
 	void push_back(T);
@@ -13,13 +13,15 @@ public:
 	void pop();
 	void pop(T*);
 	T& operator[] (size_t index);
+	void clear();
+
 private:
 	size_t sizes = 0;
 	struct Node {
 		T val;
-		Node* next;
+		Node* next = nullptr;
 	};
-	Node* root = nullptr;
+	Node* root = nullptr;	
 };
 
 template<class T>
@@ -112,4 +114,22 @@ inline T& Mylist<T>::operator[](size_t index) {
 		buf = buf->next;
 	}
 	return buf->val;	
+}
+
+template<class T>
+inline void Mylist<T>::clear() {
+	sizes = 0;
+	Node* buf = root;
+	if (buf == nullptr) {
+		return;
+	}
+	Node* buf_next = root->next;
+	while (true) {
+		delete buf;
+		buf = buf_next;
+		if (buf == nullptr) {			
+			return;
+		}
+		buf_next = buf_next->next;
+	}
 }

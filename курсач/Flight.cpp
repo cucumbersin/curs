@@ -44,3 +44,13 @@ void Flight::print() {
 	cout	<< number_seats << setw(5)	  ;
 	cout	<< Number_free_places << endl;
 }
+
+bool Flight::new_seats() {
+	if (Number_free_places - 1 < 0) {
+		return false;
+	}
+	else {
+		Number_free_places--;
+		return true;
+	}
+}

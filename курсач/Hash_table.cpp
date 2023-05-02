@@ -100,6 +100,7 @@ Passenger* Hash_table::search(std::string str) {
 void Hash_table::clear() {
 	size = 0;
 	table.clear();
+	table.resize(capacity);
 }
 
 void Hash_table::print_all() {
@@ -116,6 +117,10 @@ void Hash_table::print_all() {
 	else {
 		std::cout << "пасажиров нет" << std::endl;
 	}
+}
+
+std::vector<Passenger*> Hash_table::secret() {
+	return table;
 }
 
 Passenger* Hash_table::operator[](size_t index) {

@@ -13,6 +13,7 @@ public:
 	Passenger* search(std::string);
 	void clear();
 	void print_all();//не очень хорошая идея
+	std::vector<Passenger*> secret();
 	Passenger* operator[](size_t);//отладка
 
 private:

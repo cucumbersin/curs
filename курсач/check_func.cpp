@@ -1,5 +1,6 @@
 #include "check_func.h"
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -22,9 +23,19 @@ bool check_passport_id(std::string str) {
 	}
 	return true;
 }
+bool check_place(std::string str) {
+	if (str.size() < 3) {
+		return false;
+	}
+	for (size_t i = 0; i < str.size(); i++) {
+		if (str[i] >= '0' && str[i] <= '9') {
+			return false;
+		}
+	}
+}
 //дописать проверку символов 
 bool check_full_name(std::string str) {
-	if (str.size() < 12) {
+	if (str.size() < 8) {
 		return false;
 	}
 	string buf1, buf2, buf3;
@@ -181,6 +192,61 @@ bool check_date(std::string str) {
 	}
 }
 
+bool check_time(std::string str) {
+	if (str.size() < 4) {
+		return false;
+	}
+	bool colon_exist = false;
+	string minute,hours;
+	for (size_t i = 0; i < str.size(); i++) {
+		if (str[i] == ':') {
+			if (!colon_exist) {
+				colon_exist = true;
+				continue;
+			}
+			else {
+				return false;
+			}			
+		}
+		if (str[i] < '0' || str[i] > '9') {
+			return false;
+		}
+		if (!colon_exist) {
+			hours.push_back(str[i]);			
+		}
+		else {
+			minute.push_back(str[i]);
+		}
+	}
+	if (minute.size() > 2 || hours.size() > 2) {
+		return false;
+	}
+	if (hours.size() == 2) {
+		int hours_num = (hours[0] - '0') * 10 + (hours[1] - '0');
+		if (hours_num < 0 || hours_num > 23) {
+			return false;
+		}
+	}
+	if (minute.size() == 2) {
+		int minute_num = (minute[0] - '0') * 10 + (minute[1] - '0');
+		if (minute_num < 0 || minute_num > 59) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool check_airport_o_airline_name(std::string str) {
+	if (str.size() < 3) {
+		return false;
+	}
+	for (size_t i = 0; i < str.size(); i++) {
+		if (str[i] >= '0' && str[i] <= '9') {
+			return false;
+		}
+	}
+}
+
 bool check_airline_number(std::string str) {
 	if (str.size() != 9) {
 		return false;
@@ -191,4 +257,54 @@ bool check_airline_number(std::string str) {
 		}
 	}
 	return true;
+}
+
+bool is_number(const std::string& s) {
+	std::string::const_iterator it = s.begin();
+	while (it != s.end() && std::isdigit(*it)) ++it;
+	return !s.empty() && it == s.end();
+}
+
+int Max(int a, int b) {
+	return a >= b ? a : b;
+}
+
+void BadCharHeuristic(string str, int size, int* badChar) {
+	int i;
+
+	for (i = 0; i < 256; i++)
+		badChar[i] = -1;
+
+	for (i = 0; i < size; i++)
+		badChar[(int)str[i]] = i;
+}
+
+vector<int> SearchString(string str, string pat) {
+	vector<int> retVal;
+	int m = pat.length();
+	int n = str.length();
+
+	int* badChar = new int[256];
+
+	BadCharHeuristic(pat, m, badChar);
+
+	int s = 0;
+	while (s <= (n - m)) {
+		int j = m - 1;
+
+		while (j >= 0 && pat[j] == str[s + j])
+			--j;
+
+		if (j < 0) {
+			retVal.push_back(s);
+			s += (s + m < n) ? m - badChar[str[s + m]] : 1;
+		}
+		else {
+			s += Max(1, j - badChar[str[s + j]]);
+		}
+	}
+
+	delete[] badChar;
+
+	return retVal;
 }
