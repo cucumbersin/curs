@@ -3,6 +3,7 @@
 #include "Flight.h"
 #include <string>
 #include "check_func.h"
+#include <map>
 
 using namespace std;
 
@@ -17,7 +18,7 @@ class Wood {
 	};
 	Nood* ptr = nullptr;
 	void print_recursion(Nood* ptr, int l, bool flag);
-	int& del_min_elemente(Nood* ptr);	
+	pair<int&,Flight*> del_min_elemente(Nood* ptr);
 	void subtraction_rec(Nood* ptr, double key);
 	int height(Nood* p) { return p ? p->height : 0;};
 	void fixheight(Nood* p);
@@ -56,7 +57,7 @@ inline void Wood::print_recursion(Nood* ptr, int l, bool flag) {
 
 
 
-inline int& Wood::del_min_elemente(Nood* ptr) {
+inline pair<int&, Flight*> Wood::del_min_elemente(Nood* ptr) {
 	Nood* ptr_previous = ptr;
 	ptr = ptr->ptr_right;
 	while (true) {
@@ -71,7 +72,7 @@ inline int& Wood::del_min_elemente(Nood* ptr) {
 			else if (ptr_previous->ptr_right == ptr && ptr->ptr_right != nullptr) {
 				ptr_previous->ptr_right = ptr->ptr_right;
 			}
-			int ret_value = ptr->key;
+			pair<int&, Flight*> ret_value = { ptr->key,ptr->value };
 			if (ptr_previous->ptr_left == ptr) {
 				ptr_previous->ptr_left = nullptr;
 			}
@@ -288,6 +289,8 @@ inline bool Wood::pop(std::string str) {
 		else {
 			Nood* delete_Nood = ptr_buf->ptr_right;
 			ptr_buf->key = delete_Nood->key;
+			ptr_buf->value = delete_Nood->value;
+			delete_Nood->value = nullptr;
 			ptr_buf->ptr_left = delete_Nood->ptr_left;
 			ptr_buf->ptr_right = delete_Nood->ptr_right;
 			delete delete_Nood;
@@ -300,6 +303,8 @@ inline bool Wood::pop(std::string str) {
 		if (ptr_buf->ptr_right == nullptr) {
 			Nood* delete_Nood = ptr_buf->ptr_left;
 			ptr_buf->key = delete_Nood->key;
+			ptr_buf->value = delete_Nood->value;
+			delete_Nood->value = nullptr;
 			ptr_buf->ptr_left = delete_Nood->ptr_left;
 			ptr_buf->ptr_right = delete_Nood->ptr_right;
 			delete delete_Nood;
@@ -308,7 +313,9 @@ inline bool Wood::pop(std::string str) {
 			return true;
 		}
 		else {
-			ptr_buf->key = del_min_elemente(ptr_buf);
+			auto buf_re = del_min_elemente(ptr_buf);
+			ptr_buf->key = buf_re.first;
+			ptr_buf->value = buf_re.second;
 			--size;
 			ptr = balance(ptr);
 			return true;
