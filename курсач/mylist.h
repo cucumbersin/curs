@@ -1,6 +1,9 @@
 #pragma once
 #include <stdexcept>
+#include <vector>
 //#include "Issuance_or_refund_air_ticket.h"
+using namespace std;
+
 template <class T >
 class Mylist {
 public:	
@@ -14,7 +17,8 @@ public:
 	void pop(T*);
 	T& operator[] (size_t index);
 	void clear();
-
+	void sort();
+	void quickSort(vector<int>& arr, int left, int right);
 private:
 	size_t sizes = 0;
 	struct Node {
@@ -98,6 +102,8 @@ inline void Mylist<T>::pop(T* del_val) {
 			if (buf->val == *del_val) {				
 				pr_buf->next = buf->next;
 				delete buf;
+				sizes--;
+				break;
 			}
 			else {
 				pr_buf = pr_buf->next;
@@ -125,6 +131,7 @@ inline void Mylist<T>::clear() {
 	}
 	Node* buf_next = root->next;
 	while (true) {
+		root = nullptr;
 		delete buf;
 		buf = buf_next;
 		if (buf == nullptr) {			
@@ -133,3 +140,4 @@ inline void Mylist<T>::clear() {
 		buf_next = buf_next->next;
 	}
 }
+

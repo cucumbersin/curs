@@ -255,7 +255,7 @@ inline bool Wood::pop(std::string str) {
 		return false;
 	}
 	Nood* ptr_buf = ptr;
-	Nood* ptr_buf_previous = ptr;
+	Nood* ptr_buf_previous = ptr;	
 	while (ptr_buf->key != delete_value) {
 		if (ptr_buf->key < delete_value) {
 			if (ptr_buf->ptr_right == nullptr) {
@@ -413,7 +413,7 @@ inline void Wood::delete_tree(Nood* curr) {
 
 inline void Wood::print() {
 	if (size) {
-		//print_recursion(ptr, 5, false);//
-		 print_recursion(ptr, 5, true);
+		print_recursion(ptr, 5, false);
+		print_recursion(ptr, 5, true);
 	}
 }

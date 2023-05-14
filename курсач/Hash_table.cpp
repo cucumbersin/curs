@@ -90,7 +90,8 @@ void Hash_table::add(Passenger* obj) {
 	}
 }
 
-void Hash_table::remove(std::string str) {//Fucking Magic
+void Hash_table::remove(std::string str) {
+	table[get_index(str)] = nullptr;
 }
 
 Passenger* Hash_table::search(std::string str) {

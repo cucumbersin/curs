@@ -8,6 +8,8 @@ public:
 	 std::string get_flight_number();
 	 std::string get_airline_number();
 	 bool operator== (Issuance_or_refund_air_ticket &right);
+	 bool operator< (Issuance_or_refund_air_ticket& right);
+	 bool operator> (Issuance_or_refund_air_ticket& right);
 private:
 	std::string passport_id;
 	std::string flight_number;

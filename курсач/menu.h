@@ -33,3 +33,5 @@ void searh_flight_on_arrival_airoport(Wood& tree);
 void registration_new_issuance_or_refund_air_ticket(Wood& tree, Hash_table& table, Mylist<Issuance_or_refund_air_ticket>& list);
 
 void del_issuance_or_refund_air_ticket(Wood& tree, Hash_table& table, Mylist<Issuance_or_refund_air_ticket>& list);
+
+void quickSort(vector<Issuance_or_refund_air_ticket>& arr, int left, int right);

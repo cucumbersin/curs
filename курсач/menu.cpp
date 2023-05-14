@@ -103,12 +103,25 @@ void registration_new_passenger(Hash_table &table) {
 		cout << "Не корректный ввод" << endl;
 		return;
 	}
-	cout << "Введите место и дата выдачи паспорта" << endl;	
-	cin >> place_a_date_passport;//
+	cout << "Введите место и дата выдачи паспорта" << endl;
+	string buf;
+	cin >> buf;//
+	place_a_date_passport += buf;
+	place_a_date_passport += ' ';
+	cin >> buf;//
+	place_a_date_passport += buf;
 	cout << "Введите ФИО" << endl;
-	cin >> full_name;
-	if(check_full_name(full_name)) {
+	cin >> buf;
+	full_name = buf;
+	full_name.push_back(' ');
+	cin >> buf;
+	full_name += buf;
+	full_name.push_back(' ');
+	cin >> buf;
+	full_name += buf;
+	if(!check_full_name(full_name)) {
 		cout << "Не корректный ввод" << endl;
+		cout << full_name;
 		return;
 	}
 	cout << "Введите дату рождения" << endl;
@@ -275,7 +288,7 @@ void registration_new_flight(Wood& tree) {
 }
 
 void delete_flight(Wood& tree, Mylist<Issuance_or_refund_air_ticket>& list) {
-	cout << "Введите новый номер авиорейса" << endl;
+	cout << "Введите номер удаляемого авиорейса" << endl;
 	string flight_number;
 	cin >> flight_number;
 	if (!check_flight_number(flight_number)) {
@@ -290,7 +303,8 @@ void delete_flight(Wood& tree, Mylist<Issuance_or_refund_air_ticket>& list) {
 		if (list[i].get_flight_number() == flight_number) {
 			list.pop(&list[i]);
 		}
-	}
+		
+	}	
 }
 
 void show_all_flights(Wood& tree) {
@@ -363,6 +377,17 @@ void registration_new_issuance_or_refund_air_ticket(Wood& tree, Hash_table& tabl
 	}
 	if (tree.search(flight_number)->new_seats()) {
 		list.push(Issuance_or_refund_air_ticket(pasport_id, flight_number, airline_number));
+		vector<Issuance_or_refund_air_ticket> mas;
+		for (int i = 0; i < list.size(); i++)
+		{
+			mas.push_back(list[i]);
+		}
+		quickSort(mas, 0, mas.size() - 1);
+		list.clear();
+		for (size_t i = 0; i < mas.size(); i++)
+		{
+			list.push_back(mas[i]);
+		}		
 	}
 	else {
 		cout << "Свободных мест нет" << endl;
@@ -410,5 +435,33 @@ void del_issuance_or_refund_air_ticket(Wood& tree, Hash_table& table, Mylist<Iss
 	if (!exist) {
 		cout << "такого билета не существует" << endl;
 	}
+}
+
+void quickSort(vector<Issuance_or_refund_air_ticket>& arr, int left, int right)
+{
+	int i = left, j = right;
+	Issuance_or_refund_air_ticket tmp;
+	Issuance_or_refund_air_ticket pivot = arr[(left + right) / 2];
+
+	/* partition */
+	while (i <= j) {
+		while (arr[i] < pivot)
+			i++;
+		while (arr[j] > pivot)
+			j--;
+		if (i <= j) {
+			tmp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = tmp;
+			i++;
+			j--;
+		}
+	};
+
+	/* recursion */
+	if (left < j)
+		quickSort(arr, left, j);
+	if (i < right)
+		quickSort(arr, i, right);
 }
 

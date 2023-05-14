@@ -25,3 +25,13 @@ Issuance_or_refund_air_ticket::Issuance_or_refund_air_ticket(std::string passpor
 	}
 	return false;
 }
+
+ bool Issuance_or_refund_air_ticket::operator<(Issuance_or_refund_air_ticket& right)
+ {
+	 return this->get_airline_number() < right.airline_number;
+ }
+
+ bool Issuance_or_refund_air_ticket::operator>(Issuance_or_refund_air_ticket& right)
+ {
+	 return this->get_airline_number() > right.airline_number;
+ }
