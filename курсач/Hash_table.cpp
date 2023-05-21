@@ -91,7 +91,12 @@ void Hash_table::add(Passenger* obj) {
 }
 
 void Hash_table::remove(std::string str) {
-	table[get_index(str)] = nullptr;
+	for (size_t i = 0; i < table.size(); i++) {
+		if (table[i] != nullptr && table[i]->get_passport_id() == str) {
+			table[i] = nullptr;
+		}
+	}
+	//table[get_index(str)] = nullptr;
 }
 
 Passenger* Hash_table::search(std::string str) {

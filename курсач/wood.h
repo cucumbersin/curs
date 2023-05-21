@@ -18,7 +18,7 @@ class Wood {
 	};
 	Nood* ptr = nullptr;
 	void print_recursion(Nood* ptr, int l, bool flag);
-	pair<int&,Flight*> del_min_elemente(Nood* ptr);
+	pair<int,Flight*> del_min_elemente(Nood* ptr);
 	void subtraction_rec(Nood* ptr, double key);
 	int height(Nood* p) { return p ? p->height : 0;};
 	void fixheight(Nood* p);
@@ -57,7 +57,7 @@ inline void Wood::print_recursion(Nood* ptr, int l, bool flag) {
 
 
 
-inline pair<int&, Flight*> Wood::del_min_elemente(Nood* ptr) {
+inline pair<int, Flight*> Wood::del_min_elemente(Nood* ptr) {
 	Nood* ptr_previous = ptr;
 	ptr = ptr->ptr_right;
 	while (true) {
@@ -283,7 +283,9 @@ inline bool Wood::pop(std::string str) {
 			}
 			delete ptr_buf;
 			--size;
-			ptr = balance(ptr);
+			if (size) {
+				ptr = balance(ptr);
+			}
 			return true;//++
 		}
 		else {
@@ -295,7 +297,9 @@ inline bool Wood::pop(std::string str) {
 			ptr_buf->ptr_right = delete_Nood->ptr_right;
 			delete delete_Nood;
 			--size;
-			ptr = balance(ptr);
+			if (size) {
+				ptr = balance(ptr);
+			}
 			return true;
 		}
 	}
@@ -309,12 +313,14 @@ inline bool Wood::pop(std::string str) {
 			ptr_buf->ptr_right = delete_Nood->ptr_right;
 			delete delete_Nood;
 			--size;
-			ptr = balance(ptr);
+			if (size) {
+				ptr = balance(ptr);
+			}
 			return true;
 		}
 		else {
-			auto buf_re = del_min_elemente(ptr_buf);
-			ptr_buf->key = buf_re.first;
+			pair<int, Flight*> buf_re = del_min_elemente(ptr_buf);
+			ptr_buf->key = buf_re.second->get_num_flight_number();
 			ptr_buf->value = buf_re.second;
 			--size;
 			ptr = balance(ptr);
